@@ -1,12 +1,10 @@
 <?php 
 include 'db.php';
 
-// Now including the new 'status' column
 $validColumns = ["id", "title", "author", "year", "status"]; 
 $sort = isset($_GET["sort"]) && in_array($_GET["sort"], $validColumns) ? $_GET["sort"] : "id";
 $order = isset($_GET["order"]) && $_GET["order"] === "ASC" ? "ASC" : "DESC";
 
-// Fetch all books
 $sql = "SELECT * FROM books ORDER BY $sort $order";
 $books = $mysqli->query($sql);
 ?>
@@ -82,28 +80,6 @@ $books = $mysqli->query($sql);
             flex-grow: 1; 
             margin-right: 2rem; 
         }
-        .status-available {
-            color: green;
-            font-weight: bold;
-        }
-        .status-borrowed {
-            color: red;
-            font-weight: bold;
-        }
-        .action-btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .borrow-btn {
-            background: green;
-            color: white;
-        }
-        .return-btn {
-            background: orange;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -116,7 +92,6 @@ $books = $mysqli->query($sql);
     </form>
 </div>
 
-
         <div class="table-container">
             <table>
                 <thead>
@@ -127,7 +102,6 @@ $books = $mysqli->query($sql);
                             $arrow = ($sort === $column) ? ($order === "ASC" ? " ▲" : " ▼") : "";
                             echo "<th><a href='?sort=$column&order=$nextOrder' class='sort-link'>" . ucfirst(str_replace("_", " ", $column)) . "$arrow</a></th>";
                         }
-                        echo "<th>Action</th>";
                         ?>
                     </tr>
                 </thead>
@@ -144,24 +118,7 @@ $books = $mysqli->query($sql);
                             echo "<td>" . htmlspecialchars($row["year"]) . "</td>";
                             echo "<td class='$statusClass'>" . htmlspecialchars($row["status"]) . "</td>";
                             
-                            // Action buttons
-                            echo "<td>";
-                            if ($row["status"] === "available") {
-                                echo "<form method='post' action='transaction.php' style='display:inline;'>
-                                        <input type='hidden' name='book_id' value='" . $row["id"] . "'>
-                                        <input type='hidden' name='action' value='borrow'>
-                                        <button type='submit' class='action-btn borrow-btn'>Borrow</button>
-                                      </form>";
-                            } else {
-                                echo "<form method='post' action='transaction.php' style='display:inline;'>
-                                        <input type='hidden' name='book_id' value='" . $row["id"] . "'>
-                                        <input type='hidden' name='action' value='return'>
-                                        <button type='submit' class='action-btn return-btn'>Return</button>
-                                      </form>";
-                            }
-                            echo "</td>";
-
-                            echo "</tr>";
+                           
                         }
                     } else {
                         echo "<tr><td colspan='6'>No books found</td></tr>";
