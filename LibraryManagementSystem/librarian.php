@@ -8,7 +8,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #a8d0d8; /* light blue */
+            background-color: #c0e0e5; /* light blue */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -44,19 +44,26 @@
             color: white;
         }
 
+        /* Home icon (top left) */
         .home-icon {
             position: absolute;
             top: 20px;
             left: 20px;
-            font-size: 24px;
+            font-size: 36px; /* bigger size */
             text-decoration: none;
             color: #000;
+            transition: color 0.3s;
+        }
+
+        .home-icon:hover {
+            color: #333; /* darken on hover */
         }
     </style>
 </head>
 <body>
 
-
+    <!-- 🏠 Home icon -->
+    <a href="login.php" class="home-icon">🏠</a>
 
     <div class="container">
         <h2>Librarian Options</h2>

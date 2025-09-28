@@ -50,9 +50,20 @@
         button:hover {
             background: #e0e0e0;
         }
+        .emoji_button {
+            font-size: 2rem;
+            text-decoration: none;
+            color: black;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+        }
     </style>
 </head>
 <body>
+    <!-- 🏠 Home icon at top-left -->
+    <a href="login.php" class="emoji_button">🏠</a>
+
     <div class="container">
         <h2>Add Book</h2>
         <form method="POST">

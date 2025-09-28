@@ -132,7 +132,7 @@ if (isset($_POST['remove'])) {
 <body>
     <div class="container">
         <a href="login.php" class="home-icon">
-            <i class="fa-sharp fa-solid fa-house"></i>
+          🏠
         </a>
 
         <h2>Remove Book</h2>

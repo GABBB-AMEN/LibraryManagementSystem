@@ -17,7 +17,6 @@ $books = $mysqli->query($sql);
         body {
             background-color: #a8d8de; 
             font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
         }
@@ -27,6 +26,7 @@ $books = $mysqli->query($sql);
             background: transparent;
             padding: 20px;
             border-radius: 10px;
+            text-align: center;
         }
         h2 {
             font-family: "Georgia", serif;
@@ -69,28 +69,29 @@ $books = $mysqli->query($sql);
             font-size: 2rem;
             text-decoration: none;
             color: black;
+            position: absolute;
+            top: 15px;
+            left: 20px;
         }
         .header-bar {
             display: flex; 
             align-items: center;
-            justify-content: space-between; 
+            justify-content: space-between; /* pushes search button away */
             margin-bottom: 20px;
-        }
-        .header-bar h2 {
-            flex-grow: 1; 
-            margin-right: 2rem; 
         }
     </style>
 </head>
 <body>
+    <!-- 🏠 Home icon fixed at top-left -->
+    <a href="login.php" class="emoji_button">🏠</a>
+
     <div class="container">
         <div class="header-bar">
-    <a href="login.php" class="emoji_button">🏠</a>
-    <h2>Browse Catalog</h2>
-    <form action="search_books.php" method="get" style="margin: 0;">
-        <button type="submit" class="action-btn" style="background: black-grey; color:black;">🔍 Search</button>
-    </form>
-</div>
+            <h2>Browse Catalog</h2>
+            <form action="search_books.php" method="get" style="margin: 0;">
+                <button type="submit" class="action-btn" style="background: black-grey; color:black;">🔍 Search</button>
+            </form>
+        </div>
 
         <div class="table-container">
             <table>
@@ -117,8 +118,7 @@ $books = $mysqli->query($sql);
                             echo "<td>" . htmlspecialchars($row["author"]) . "</td>";
                             echo "<td>" . htmlspecialchars($row["year"]) . "</td>";
                             echo "<td class='$statusClass'>" . htmlspecialchars($row["status"]) . "</td>";
-                            
-                           
+                            echo "</tr>";
                         }
                     } else {
                         echo "<tr><td colspan='6'>No books found</td></tr>";

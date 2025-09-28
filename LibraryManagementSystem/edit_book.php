@@ -164,9 +164,7 @@ if (isset($_POST['update'])) {
 <div class="page">
 
     <!-- Home Icon -->
-    <a href="login.php" class="home-icon">
-        <i class="fa-sharp fa-solid fa-house"></i>
-    </a>
+    <a href="login.php" class="home-icon">🏠</a>
 
     <!-- Functional Search Bar (Centered) -->
     <form method="POST" action="">

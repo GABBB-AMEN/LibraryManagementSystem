@@ -11,14 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['borrow'])) {
         // Borrow book
         $sql = "SELECT * FROM books WHERE title=? AND status='available'";
-        $stmt = $conn->prepare($sql);
+        $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("s", $bookName);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $update = "UPDATE books SET status='borrowed' WHERE title=?";
-            $upStmt = $conn->prepare($update);
+            $upStmt = $mysqli->prepare($update);
             $upStmt->bind_param("s", $bookName);
             $upStmt->execute();
             $message = "✅ You borrowed '$bookName'.";
@@ -30,14 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['return'])) {
         // Return book
         $sql = "SELECT * FROM books WHERE title=? AND status='borrowed'";
-        $stmt = $conn->prepare($sql);
+        $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("s", $bookName);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $update = "UPDATE books SET status='available' WHERE title=?";
-            $upStmt = $conn->prepare($update);
+            $upStmt = $mysqli->prepare($update);
             $upStmt->bind_param("s", $bookName);
             $upStmt->execute();
             $message = "✅ You returned '$bookName'.";
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Search books
         $searchTerm = "%" . $bookName . "%";
         $sql = "SELECT * FROM books WHERE title LIKE ?";
-        $stmt = $conn->prepare($sql);
+        $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("s", $searchTerm);
         $stmt->execute();
         $searchResults = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -65,30 +65,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #9DD4DA; /* Figma background */
+            background-color: #c0e0e5; /* Figma background */
             text-align: center;
             margin: 0;
             padding: 50px;
         }
 
         /* Home button (top left) */
-        .home-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #333;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .home-btn:hover {
-            background: #111;
-        }
+        /* Home button (top left) */
+.home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 18px;
+    font-size: 32px; /* ⬅️ make the house bigger */
+    text-decoration: none;
+}
 
         .container {
-            background: #7DBEB8; /* Box color */
+            background: #add8e6; /* Box color */
             padding: 40px;
             border-radius: 10px;
             display: inline-block;
@@ -115,34 +110,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
         }
 
-      
-button {
-    display: block;
-    width: 200px;
-    margin: 15px auto;
-    padding: 15px 0;
-    background-color: white;
-    border: 2px solid #000;
-    border-radius: 25px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
+        button {
+            display: block;
+            width: 200px;
+            margin: 15px auto;
+            padding: 15px 0;
+            background-color: white;
+            border: 2px solid #000;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
+        button:hover {
+            background-color: #333;
+            color: white;
+        }
 
-button:hover {
-    background-color: #333;
-    color: white;
-}
-
-
-.borrow { border-color: #000; }
-.return { border-color: #000; }
-.search { border-color: #000; }
-
+        .borrow { border-color: #000; }
+        .return { border-color: #000; }
+        .search { border-color: #000; }
 
         table {
             margin: 20px auto;
@@ -163,7 +154,7 @@ button:hover {
 </head>
 <body>
     <!-- Home button (upper left) -->
-    <a href="index.php" class="home-btn">🏠 Home</a>
+    <a href="login.php" class="home-btn">🏠</a>
 
     <div class="container">
         <h2>BORROW / RETURN BOOKS</h2>

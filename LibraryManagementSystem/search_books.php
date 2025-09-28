@@ -146,7 +146,7 @@ $result = $conn->query("SELECT * FROM books $where ORDER BY id ASC");
     </style>
 </head>
 <body>
-    <div class="home-icon" onclick="window.location.href='index.php'">&#x1F3E0;</div>
+    <div class="home-icon" onclick="window.location.href='browse_books.php'">&#x1F3E0;</div>
     <div class="container">
         <div class="header-bar">
             
