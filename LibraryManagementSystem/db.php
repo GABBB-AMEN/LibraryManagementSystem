@@ -10,5 +10,4 @@ if ($mysqli->connect_errno) {
     die("Failed to connect: " . $mysqli->connect_error);
 }
 
-echo "✅ Database connection successful!";
 ?>
